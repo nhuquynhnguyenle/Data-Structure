@@ -26,14 +26,14 @@ public class BST<T extends Comparable<T>> {
     }
 
     public T search(T dataIn) {
-        BSTNode<T> node = root;
-        while (node != null) {
-            if (dataIn.equals(node.data)) {
-                return node.data;
-            } else if (dataIn.compareTo(node.data) < 0) {
-                node = node.left;
+        BSTNode<T> root = this.root;
+        while (root != null) {
+            if (dataIn.equals(root.data)) {
+                return root.data;
+            } else if (dataIn.compareTo(root.data) < 0) {
+                root = root.left;
             } else {
-                node = node.right;
+                root = root.right;
             }
         }
         return null;
