@@ -115,7 +115,7 @@ public class BST<T extends Comparable<T>> {
 
     public void deleteByMerge(T dataIn) {
         BSTNode<T> temp, node, root = this.root, prev = null;
-        while (root != null && !root.data.equals(dataIn)) {  //fimd the node p with element dataIn
+        while (root != null && !root.data.equals(dataIn)) {  //fimd the node root with element dataIn
             prev = root;
             if (dataIn.compareTo(root.data) < 0) {
                 root = root.left;
@@ -124,10 +124,10 @@ public class BST<T extends Comparable<T>> {
             }
         }
         node = root;
-        if (root != null && dataIn.equals(root.data)) {  //
-            if (node.right == null) {
+        if (root != null && dataIn.equals(root.data)) {  //Node has no right child: its left child 
+            if (node.right == null) {                    //(if any) is attached to its parent;
                 node = node.left;
-            } else if (node.left == null) {
+            } else if (node.left == null) {   //
                 node = node.right;
             } else {
                 temp = node.left;
@@ -135,7 +135,45 @@ public class BST<T extends Comparable<T>> {
                     temp = temp.right;
                 }
                 temp.right = node.right;
+                node = node.left;
             }
+            if (root == this.root) {
+                root = node;
+            } else if (prev.left == root) {
+                prev.left = node;
+            } else {
+                prev.right = node;
+            }
+        } else if (this.root != null) {
+            System.out.println("key " + dataIn + " is not in the tree");
+        } else {
+            System.out.println("the tree is empty");
+        }
+    }
+
+    public void deleteByCoping(T dataIn) {
+        BSTNode<T> node, root = this.root, prev = null;
+        while (root != null && !root.data.equals(dataIn)) {
+            prev = root;
+            if (dataIn.compareTo(root.data) < 0) {
+                root = root.left;
+            } else {
+                root = root.right;
+            }
+        }
+        node = root;
+        if (root != null && root == dataIn) {
+            if (node.right == null) {
+            }
+        }
+    }
+
+    public void balance(T data[], int first, int last) {
+        if (first <= last) {
+            int middle = (first + last) / 2;
+            insert(data[middle]);
+            balance(data, first, middle - 1);
+            balance(data, middle + 1, last);
         }
     }
 }
